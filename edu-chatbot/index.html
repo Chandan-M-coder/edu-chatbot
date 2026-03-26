@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Edu Chatbot</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="chat-header">
+            <h1>🎓 EduBot</h1>
+            <p>Ask me about Math, Science, Programming!</p>
+        </div>
+
+        <div class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+                <!-- Messages will appear here -->
+                <div class="message bot-message">
+                    <p>Hello! I'm your educational assistant. Ask me anything! 😊</p>
+                </div>
+            </div>
+
+            <div class="chat-input">
+                <input type="text" id="userInput" placeholder="Type your question here...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+
+            <div class="suggestions">
+                <p>Try asking:</p>
+                <button onclick="quickQuestion('What is Python?')">What is Python?</button>
+                <button onclick="quickQuestion('What is 2+2?')">What is 2+2?</button>
+                <button onclick="quickQuestion('What is photosynthesis?')">What is photosynthesis?</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to send message to backend
+        async function sendMessage() {
+            const userInput = document.getElementById('userInput');
+            const message = userInput.value.trim();
+            
+            if (!message) return;
+
+            // Add user message to chat
+            addMessage(message, 'user');
+            userInput.value = '';
+
+            // Show typing indicator
+            const typingIndicator = addMessage('Typing...', 'bot');
+            
+            try {
+                // Send to backend
+                const response = await fetch('http://localhost:5000/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: message })
+                });
+
+                const data = await response.json();
+                
+                // Remove typing indicator
+                typingIndicator.remove();
+                
+                // Add bot response
+                addMessage(data.response, 'bot');
+                
+            } catch (error) {
+                // Remove typing indicator
+                typingIndicator.remove();
+                addMessage('Sorry, server error. Please try again.', 'bot');
+                console.error('Error:', error);
+            }
+        }
+
+        // Function to add message to chat
+        function addMessage(text, sender) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            
+            const messageP = document.createElement('p');
+            messageP.textContent = text;
+            messageDiv.appendChild(messageP);
+            
+            chatMessages.appendChild(messageDiv);
+            
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            return messageDiv;
+        }
+
+        // Function for quick questions
+        function quickQuestion(question) {
+            document.getElementById('userInput').value = question;
+            sendMessage();
+        }
+
+        // Allow pressing Enter to send message
+        document.getElementById('userInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>

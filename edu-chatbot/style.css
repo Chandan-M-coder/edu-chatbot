@@ -1,0 +1,132 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #74b9ff, #0984e3);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
+.chat-header {
+    background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.chat-header h1 {
+    margin-bottom: 5px;
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background: #f8f9fa;
+}
+
+.message {
+    margin-bottom: 15px;
+    padding: 12px 16px;
+    border-radius: 18px;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+.user-message {
+    background: #6c5ce7;
+    color: white;
+    margin-left: auto;
+    border-bottom-right-radius: 5px;
+}
+
+.bot-message {
+    background: white;
+    border: 1px solid #ddd;
+    margin-right: auto;
+    border-bottom-left-radius: 5px;
+}
+
+.chat-input {
+    padding: 15px;
+    background: white;
+    border-top: 1px solid #eee;
+    display: flex;
+    gap: 10px;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    outline: none;
+    font-size: 16px;
+}
+
+.chat-input input:focus {
+    border-color: #6c5ce7;
+}
+
+.chat-input button {
+    padding: 12px 25px;
+    background: #6c5ce7;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.chat-input button:hover {
+    background: #5649c0;
+}
+
+.suggestions {
+    padding: 15px;
+    background: #f8f9fa;
+    border-top: 1px solid #eee;
+    text-align: center;
+}
+
+.suggestions p {
+    margin-bottom: 10px;
+    color: #666;
+    font-size: 14px;
+}
+
+.suggestions button {
+    margin: 0 5px;
+    padding: 8px 15px;
+    background: #dfe6e9;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.suggestions button:hover {
+    background: #b2bec3;
+}
